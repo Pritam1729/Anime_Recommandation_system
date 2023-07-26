@@ -22,7 +22,11 @@ for index,row in db.iterrows():
         genre = genre.translate({ord(" "):None})
         anime.at[index,genre] = int(1)
         
+        
 anime = anime.fillna(0)
+
+
+    # print(row['synopsis'])
 
 def predict(x):
     title = x
@@ -51,6 +55,7 @@ def predict(x):
     example['finalrating'] = example['rating'] * example['score']
 
     example = example[example['title'] != title]
+    example['episodes'].fillna(0)
     sorted_df = example.sort_values(by=['finalrating'], ascending=False)
     recommandation = []
     
