@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import re
 
-db = pd.read_csv('animes.csv')
+db = pd.read_csv("animefile.csv")
 
 db = db.drop_duplicates()
 
@@ -50,20 +50,20 @@ def predict(x):
 
     example['finalrating'] = example['rating'] * example['score']
 
-
+    example = example[example['title'] != title]
     sorted_df = example.sort_values(by=['finalrating'], ascending=False)
     recommandation = []
     
-    for index,row in sorted_df.head().iterrows():
+    for index,row in sorted_df.head(6).iterrows():
         recommandation.append(row)
         
     return recommandation
 
 
-x = input("Enter the correct anime name = ")
-listt = predict(x)
+# x = input("Enter the correct anime name = ")
+# listt = predict(x)
 
-for i in listt:
-    print(i['title'])
-    print(i['synopsis'])
-    print("\n")
+# for i in listt:
+#     print(i['title'])
+#     print(i['synopsis'])
+#     print("\n")
